@@ -1,0 +1,6 @@
+{
+    "ServiceName": "sys-service-scaffolding",
+    "ServiceDisplayName": "SYS_SERVICE_SCAFFOLDING",
+    "ServiceDescription": "iliot.cn",
+    "DbIP": ""
+}
