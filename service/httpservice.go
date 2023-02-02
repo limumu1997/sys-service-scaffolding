@@ -1,16 +1,15 @@
 package service
 
 import (
-	"fmt"
 	"net/http"
-	"time"
+	"sys-service-scaffolding/config"
 
 	log "github.com/sirupsen/logrus"
 )
 
 func Start() {
 	http.HandleFunc("/", greet)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(config.Config.ListenPort, nil)
 }
 
 func Stop() {
@@ -18,7 +17,7 @@ func Stop() {
 }
 
 func greet(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello World! %s", time.Now())
-	log.Info(time.Now())
-	log.Error(time.Now().String() + "Error")
+	w.Write([]byte("Hello World!"))
+	// 使用浏览器请求一次有两条日志是因为多请求一次 /favicon.ico
+	log.Info(r.RemoteAddr)
 }

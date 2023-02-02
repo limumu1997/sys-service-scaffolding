@@ -12,6 +12,7 @@ type config struct {
 	ServiceDisplayName string
 	ServiceDescription string
 	DbIP               string
+	ListenPort         string
 }
 
 var Config config

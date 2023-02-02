@@ -18,17 +18,7 @@ type MyErrorHook struct{}
 
 func init() {
 	h := &MyErrorHook{}
-	log.SetFormatter(&MyFormatter{})
-	log.AddHook(h)
-	res, _ := filepath.Abs(filepath.Dir(os.Args[0]))
-	curlog := filepath.Join(res, "logs")
-	logf, err := rotatelogs.New(
-		filepath.Join(curlog, "app.%Y%m%d.log"),
-		rotatelogs.WithLinkName(filepath.Join(curlog, "applog.log")),
-		// 180 day Time out auto delete
-		rotatelogs.WithMaxAge(time.Duration(180*24)*time.Hour),
-	)
-
+	logf, err := rotateLogs("app")
 	writers := []io.Writer{
 		logf,
 		os.Stdout}
@@ -36,17 +26,19 @@ func init() {
 	if err != nil {
 		log.Error("failed to create rotatelogs: %s", err)
 	}
+	log.SetFormatter(&MyFormatter{})
+	log.AddHook(h)
 	log.SetOutput(fileAndStdoutWriter)
 }
 
 // Implement Formatter interface
 // Format renders a single log entry
 func (m *MyFormatter) Format(entry *log.Entry) ([]byte, error) {
-	formatEntry := FormatEntry(entry)
+	formatEntry := formatEntry(entry)
 	return formatEntry, nil
 }
 
-func FormatEntry(entry *log.Entry) []byte {
+func formatEntry(entry *log.Entry) []byte {
 	var b *bytes.Buffer
 	if entry.Buffer != nil {
 		b = entry.Buffer
@@ -81,15 +73,8 @@ func (h *MyErrorHook) Levels() []log.Level {
 }
 
 func (h *MyErrorHook) Fire(entry *log.Entry) error {
-	res, _ := filepath.Abs(filepath.Dir(os.Args[0]))
-	curlog := filepath.Join(res, "logs")
-	logf, err := rotatelogs.New(
-		filepath.Join(curlog, "err.%Y%m%d.log"),
-		rotatelogs.WithLinkName(filepath.Join(curlog, "err.log")),
-		// 180 day Time out auto delete
-		rotatelogs.WithMaxAge(time.Duration(180*24)*time.Hour),
-	)
-	formatEntry := FormatEntry(entry)
+	logf, err := rotateLogs("err")
+	formatEntry := formatEntry(entry)
 	if err != nil {
 		return err
 	}
@@ -97,4 +82,15 @@ func (h *MyErrorHook) Fire(entry *log.Entry) error {
 		return err
 	}
 	return nil
+}
+
+func rotateLogs(filename string) (*rotatelogs.RotateLogs, error) {
+	res, _ := filepath.Abs(filepath.Dir(os.Args[0]))
+	curlog := filepath.Join(res, "logs")
+	return rotatelogs.New(
+		filepath.Join(curlog, filename+".%Y%m%d.log"),
+		rotatelogs.WithLinkName(filepath.Join(curlog, filename+".log")),
+		// 180 day Time out auto delete
+		rotatelogs.WithMaxAge(time.Duration(180*24)*time.Hour),
+	)
 }
