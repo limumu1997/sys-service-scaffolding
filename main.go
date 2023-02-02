@@ -38,8 +38,7 @@ func (p *program) Start(s service.Service) error {
 func (p *program) run() {
 	// run anything
 	// util.AutoOpenExplorer(config.Config.ListenPort)
-	httpservice.Start()
-	httpservice.Stop()
+	httpservice.ListenAndServe()
 }
 
 func (p *program) Stop(s service.Service) error {
