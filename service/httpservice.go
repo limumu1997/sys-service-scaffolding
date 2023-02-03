@@ -17,7 +17,16 @@ func ListenAndServe() {
 	// INIT_VIUINIT_REQ_101_20230202155112230.json
 	s.HandleFunc("/{gantryid}/{filetype}/{filename}", etcdfsPRAPiHandler).Methods(http.MethodPost)
 	http.Handle("/", r)
-	http.ListenAndServe(config.Config.ListenPort, nil)
+
+	srv := &http.Server{
+		Handler: r,
+		Addr:    config.Config.ListenPort,
+		// Good practice: enforce timeouts for servers you create!
+		WriteTimeout: 3 * time.Second,
+		ReadTimeout:  3 * time.Second,
+	}
+
+	log.Fatal(srv.ListenAndServe())
 }
 
 // 门架系统车牌图像识别设备接口

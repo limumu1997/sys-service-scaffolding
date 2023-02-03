@@ -6,6 +6,8 @@
 
 ``` sehll
 go build -o .\bin\sys-service-scaffolding.exe .\main.go
+
+upx --best .\bin\bzdts.exe -o .\bin\bzdts-service.exe
 ```
 
 ```
