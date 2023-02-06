@@ -1,7 +1,7 @@
 {
     "ServiceName": "sys-service-scaffolding",
     "ServiceDisplayName": "SYS_SERVICE_SCAFFOLDING",
-    "ServiceDescription": "iliot.cn",
+    "DataPath":"C:\\Users\\Villain\\Documents\\Tongfu\\data\\etcdfs",
     "DbIP": "",
     "ListenPort": ":58080"
 }

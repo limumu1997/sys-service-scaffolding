@@ -11,7 +11,8 @@ type config struct {
 	ServiceName        string
 	ServiceDisplayName string
 	ServiceDescription string
-	DbIP               string
+	DataPath           string
+	DBIP               string
 	ListenPort         string
 }
 
