@@ -5,7 +5,6 @@ import (
 	"io"
 	"os"
 	"path/filepath"
-	"strings"
 	"time"
 
 	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
@@ -47,18 +46,7 @@ func formatEntry(entry *log.Entry) []byte {
 	}
 
 	timestamp := entry.Time.Format("2006-01-02T15:04:05.000")
-	var sb strings.Builder
-	sb.WriteString("[")
-	sb.WriteString(timestamp)
-	sb.WriteString("]")
-	sb.WriteString(" ")
-	sb.WriteString("[")
-	sb.WriteString(entry.Level.String())
-	sb.WriteString("]")
-	sb.WriteString(" ")
-	sb.WriteString(entry.Message)
-	sb.WriteString("\n")
-	fileVal := sb.String()
+	fileVal := "[" + timestamp + "] " + "[" + entry.Level.String() + "] " + entry.Message + "\n"
 	b.WriteString(fileVal)
 	return b.Bytes()
 }
