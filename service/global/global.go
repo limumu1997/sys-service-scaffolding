@@ -1,19 +1,17 @@
 package global
 
 import (
-	"database/sql"
 	"path/filepath"
 	"strings"
 	"sys-service-scaffolding/config"
-	"time"
 
 	_ "github.com/go-sql-driver/mysql"
+	"gorm.io/driver/mysql"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
-var MYSQL_DB *sql.DB
-var SQLITE_DB *gorm.DB
+var DB *gorm.DB
 
 func init() {
 	if !strings.EqualFold(config.Config.DataPath, "") {
@@ -26,20 +24,18 @@ func init() {
 
 func mysqlConnect() {
 	var err error
-	dns := "exitpassMYSQL_DB2user:kRaq4FQsnNWyM9NFxvYUjl5FmEGY7uMC@tcp(" + config.Config.DBIP + ":3306)/exitpassMYSQL_DB2"
-	MYSQL_DB, err = sql.Open("mysql", dns)
+	// dns: [username[:password]@][protocol[(address)]]/dbname[?param1=value1&...&paramN=valueN]
+	dsn := "root:limumu1997@tcp(" + config.Config.DBIP + ":3306)/home_device?charset=utf8mb4&parseTime=True&loc=Local"
+	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
-	MYSQL_DB.SetConnMaxLifetime(60 * time.Second)
-	MYSQL_DB.SetMaxOpenConns(100)
-	MYSQL_DB.SetMaxIdleConns(16)
 }
 
 func sqliteConnect() {
 	var err error
 	vr_etcdfs := filepath.Join(config.Config.DataPath, "vr_etcdfs.db")
-	SQLITE_DB, err = gorm.Open(sqlite.Open(vr_etcdfs), &gorm.Config{})
+	DB, err = gorm.Open(sqlite.Open(vr_etcdfs), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
