@@ -4,7 +4,7 @@ import (
 	"flag"
 	"os"
 	"sys-service-scaffolding/config"
-	httpservice "sys-service-scaffolding/service"
+	myservice "sys-service-scaffolding/service"
 	_ "sys-service-scaffolding/util"
 
 	"github.com/kardianos/service"
@@ -38,7 +38,7 @@ func (p *program) Start(s service.Service) error {
 func (p *program) run() {
 	// run anything
 	// util.AutoOpenExplorer(config.Config.ListenPort)
-	httpservice.ListenAndServe()
+	myservice.ListenAndServe()
 }
 
 func (p *program) Stop(s service.Service) error {
