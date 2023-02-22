@@ -21,7 +21,7 @@ var Config config
 func init() {
 	executable, _ := os.Executable()
 	res, _ := filepath.EvalSymlinks(filepath.Dir(executable))
-	dataConfig, err := os.ReadFile(res + "/config.json")
+	dataConfig, err := os.ReadFile(filepath.Join(res, "config.json"))
 	if err != nil {
 		log.Println(err)
 	}
