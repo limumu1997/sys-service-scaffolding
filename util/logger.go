@@ -23,7 +23,7 @@ func init() {
 		os.Stdout}
 	fileAndStdoutWriter := io.MultiWriter(writers...)
 	if err != nil {
-		log.Error("failed to create rotatelogs: %s", err)
+		log.Errorf("failed to create rotatelogs: %s", err)
 	}
 	log.SetFormatter(&MyFormatter{})
 	log.AddHook(h)

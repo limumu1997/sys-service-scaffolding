@@ -1,10 +1,17 @@
 package config
 
 import (
+	"embed"
 	"encoding/json"
 	"log"
 	"os"
 	"path/filepath"
+)
+
+var (
+	//go:embed config.json
+	c      embed.FS
+	Config config
 )
 
 type config struct {
@@ -14,16 +21,17 @@ type config struct {
 	DataPath           string
 	DBIP               string
 	ListenPort         string
+	DialAddr           string
 }
-
-var Config config
 
 func init() {
 	executable, _ := os.Executable()
 	res, _ := filepath.EvalSymlinks(filepath.Dir(executable))
-	dataConfig, err := os.ReadFile(filepath.Join(res, "config.json"))
+	absPath := filepath.Join(res, "config.json")
+	dataConfig, err := os.ReadFile(absPath)
 	if err != nil {
-		log.Println(err)
+		log.Println("prod env can not find config.json file, use embed config")
+		dataConfig, _ = c.ReadFile("config.json")
 	}
 	json.Unmarshal(dataConfig, &Config)
 }
