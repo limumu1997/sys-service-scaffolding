@@ -46,7 +46,7 @@ func formatEntry(entry *log.Entry) []byte {
 	}
 
 	timestamp := entry.Time.Format("2006-01-02T15:04:05.000")
-	fileVal := "[" + timestamp + "] " + "[" + entry.Level.String() + "] " + entry.Message + "\n"
+	fileVal := "[" + timestamp + "] " + "[" + entry.Level.String() + "] " + entry.Message + "\r\n"
 	b.WriteString(fileVal)
 	return b.Bytes()
 }

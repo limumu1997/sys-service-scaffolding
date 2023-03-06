@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"os"
 	"sys-service-scaffolding/config"
 	myservice "sys-service-scaffolding/service"
 	_ "sys-service-scaffolding/util"
@@ -84,7 +83,7 @@ func installService() {
 func uninstallService() {
 	s := getService()
 	s.Stop()
-	os.Exit(1)
+	// os.Exit(1)
 	if err := s.Uninstall(); err == nil {
 		log.Printf("%s service uninstall successful!", ServiceConfig.Name)
 	} else {
