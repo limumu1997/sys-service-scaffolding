@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"sys-service-scaffolding/config"
-	myservice "sys-service-scaffolding/service"
 	_ "sys-service-scaffolding/util"
 
 	"github.com/kardianos/service"
@@ -24,7 +23,7 @@ var ServiceConfig = &serviceConfig{
 	Name:        config.Config.ServiceName,
 	DisplayName: config.Config.ServiceDisplayName,
 	Description: config.Config.ServiceDescription,
-	Version:     "1.0.0"}
+	Version:     "1.0.12"}
 
 type program struct{}
 
@@ -37,7 +36,7 @@ func (p *program) Start(s service.Service) error {
 func (p *program) run() {
 	// run anything
 	// util.AutoOpenExplorer(config.Config.ListenPort)
-	myservice.ListenAndServe()
+	// app.ListenAndServe()
 }
 
 func (p *program) Stop(s service.Service) error {

@@ -15,13 +15,13 @@ var (
 )
 
 type config struct {
-	ServiceName        string
-	ServiceDisplayName string
-	ServiceDescription string
-	DataPath           string
-	DBIP               string
-	ListenPort         string
-	DialAddr           string
+	ServiceName        string `json:"service_name"`
+	ServiceDisplayName string `json:"service_display_name"`
+	ServiceDescription string `json:"service_description"`
+	DataPath           string `json:"data_path"`
+	DBIP               string `json:"db_ip"`
+	ListenPort         string `json:"listen_port"`
+	DialAddr           string `json:""`
 }
 
 func init() {

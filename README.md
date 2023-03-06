@@ -1,4 +1,4 @@
-# Golang System Service Scaffolding
+# Golang sys-service-scaffolding
 
 1. 跨平台服务脚手架，需要Linux平台直接编译即可；
 2. 终端启动打开默认浏览器；
@@ -7,26 +7,30 @@
 ``` sehll
 go build -o .\bin\sys-service-scaffolding.exe .\main.go
 
-upx --best .\bin\bzdts.exe -o .\bin\bzdts-service.exe
+upx --best .\bin\sys-service-scaffolding.exe -o .\bin\sys-service-scaffolding-service.exe
 ```
 
+## Commit 指南
+
+Commit messages 请遵循[conventional-changelog 标准](https://www.conventionalcommits.org/en/v1.0.0/)：
+
+```bash
+<类型>[可选 范围]: <描述>
+
+[可选 正文]
+
+[可选 脚注]
 ```
-2.1 设备初始化
-    INIT_VIUINIT_REQ_SENDER_yyyyMMddHHmmsszzz.json
-    SENDER：gantryId（19 位字符）+ cameraNum（3 位字符）
-    示例：INIT_VIUINIT_REQ_G000511001000110100101_20190807100102345.json
 
-2.2 基础数据上传
-    SENDER：gantryId（19 位字符）+ cameraNum（3 位字符）
-    示例：MON_BVIUBASEINFO_REQ_G000511001000110100101_20190807100102345.json
+### Commit 类型
 
-2.3 图片流水上传
-    TRC_BVIU_REQ_G000511001000110100101_20190807100102345.json
+以下是 commit 类型列表:
 
-2.4 图片上传
-    TRC_BVIPU_REQ_G000511001000110100101_20190807100102345.json
-
-2.5 状态信息上传
-    MON_BVIUSTATE_REQ_G000511001000110100101_20190807100102345.json
-
-```
+- feat: 新特性或功能
+- fix: 缺陷修复
+- docs: 文档更新
+- style: 代码风格或者组件样式更新
+- refactor: 代码重构，不引入新功能和缺陷修复
+- perf: 性能优化
+- test: 单元测试
+- chore: 其他不修改 src 或测试文件的提交

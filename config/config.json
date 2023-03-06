@@ -1,8 +1,8 @@
 {
-    "ServiceName": "sys-service-scaffolding",
-    "ServiceDisplayName": "SYS_SERVICE_SCAFFOLDING",
-    "ServiceDescription": "",
-    "DataPath":"C:\\Users\\Villain\\Documents\\Tongfu\\data\\etcdfs",
-    "DbIP": "",
-    "ListenPort": ":58080"
+    "service_name": "sys-service-scaffolding",
+    "service_display_name": "sys-service-scaffolding",
+    "service_description": "",
+    "data_path":"",
+    "db_ip": "",
+    "listen_port": ":"
 }
